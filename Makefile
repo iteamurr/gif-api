@@ -7,7 +7,7 @@ run: # Run the service.
 
 .PHONY: test
 test: # Run project tests.
-		pytest --cov-report term-missing --cov=$(APPLICATION_NAME) -v tests/
+		poetry run pytest -v --cov=$(APPLICATION_NAME) --cov-report=term-missing --cov-fail-under=80 tests/
 
 .PHONY: up
 up: # Create and launch service containers.
