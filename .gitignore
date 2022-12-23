@@ -1,2 +1,4 @@
 .venv/
 .env
+__pycache__/
+gif_api.log

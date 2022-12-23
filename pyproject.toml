@@ -36,7 +36,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
-asyncio_mode="auto"
+asyncio_mode = "auto"
 testpaths = ["tests"]
 
 [tool.pylint.messages_control]
