@@ -33,7 +33,7 @@ jobs:
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       run: |
-        poetry install --no-interaction --without dev
+        poetry install --no-interaction
     - name: Lint with pylint
       run: |
         poetry run pylint --fail-under=9 gif_api
@@ -72,7 +72,7 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
-          poetry install --no-interaction --without dev
+          poetry install --no-interaction
       - name: Test with pytest
         run: |
           poetry run pytest -v --cov=gif_api --cov-report=term-missing --cov-fail-under=80 tests/
