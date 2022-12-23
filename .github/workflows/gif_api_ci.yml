@@ -80,5 +80,5 @@ jobs:
           POSTGRES_DB: gif_api_test_db
           POSTGRES_USER: gif_api_test_db_agent
           POSTGRES_PASSWORD: hackme
-          POSTGRES_HOST: localhost
+          POSTGRES_HOST: postgres
           POSTGRES_PORT: 5432
