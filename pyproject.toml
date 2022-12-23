@@ -1,7 +1,8 @@
 [tool.poetry]
 name = "gif-api"
 version = "0.1.0"
-description = "API for gif service."
+description = "Simple API for a GIF service."
+license = "MIT"
 authors = ["iteamurr <iteamurr@gmail.com>"]
 readme = "README.md"
 packages = [{include = "gif_api"}]
