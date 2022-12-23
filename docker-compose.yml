@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   db:
-    container_name: gif_api_postgres
+    container_name: gif-api-postgres
     hostname: db
     image: postgres:15.1
     env_file:
@@ -11,7 +11,7 @@ services:
       - '${POSTGRES_PORT}:${POSTGRES_PORT}'
 
   backend:
-    container_name: gif_api_backend
+    container_name: gif-api-backend
     hostname: backend
     build:
       context: .
@@ -27,7 +27,7 @@ services:
       - db
 
   nginx:
-    container_name: gif_api_nginx
+    container_name: gif-api-nginx
     hostname: nginx
     image: nginx:1.23
     volumes:
