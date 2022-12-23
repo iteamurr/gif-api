@@ -1,0 +1,50 @@
+[tool.poetry]
+name = "gif-api"
+version = "0.1.0"
+description = "API for gif service."
+authors = ["iteamurr <iteamurr@gmail.com>"]
+readme = "README.md"
+packages = [{include = "gif_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aiohttp = "^3.8.3"
+attrs = "^22.1.0"
+pydantic = "^1.10.2"
+loguru = "^0.6.0"
+SQLAlchemy = {extras = ["asyncio"], version = "^1.4.45"}
+SQLAlchemy-Utils = "^0.38.3"
+asyncpg = "^0.27.0"
+psycopg2-binary = "^2.9.5"
+alembic = "^1.8.1"
+python-decouple = "^3.6"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.12.0"
+isort = "^5.11.3"
+pyclean = "^2.2.0"
+pytest = "^7.2.0"
+pytest-aiohttp = "^1.0.4"
+pytest-async-sqlalchemy = "^0.2.0"
+pytest-cov = "^4.0.0"
+pylint = "^2.15.9"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+asyncio_mode="auto"
+testpaths = ["tests"]
+
+[tool.pylint.messages_control]
+max-line-length = 88
+extension-pkg-whitelist = "pydantic"
+disable = [
+  "missing-module-docstring",
+  "missing-class-docstring",
+  "missing-function-docstring",
+  "too-few-public-methods",
+]
