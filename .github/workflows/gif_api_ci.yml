@@ -44,12 +44,16 @@ jobs:
       postgres:
         image: postgres
         env:
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -77,8 +81,8 @@ jobs:
         run: |
           poetry run pytest -v --cov=gif_api --cov-report=term-missing --cov-fail-under=80 tests/
         env:
-          POSTGRES_DB: gif_api_test_db
-          POSTGRES_USER: gif_api_test_db_agent
-          POSTGRES_PASSWORD: hackme
-          POSTGRES_HOST: postgres
-          POSTGRES_PORT: 5432
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
