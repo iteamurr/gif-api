@@ -19,6 +19,7 @@ asyncpg = "^0.27.0"
 psycopg2-binary = "^2.9.5"
 alembic = "^1.8.1"
 python-decouple = "^3.6"
+aiohttp-swagger3 = "^0.7.2"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -49,3 +50,7 @@ disable = [
   "missing-function-docstring",
   "too-few-public-methods",
 ]
+
+[tool.isort]
+lines_after_imports = 2
+line_length = 88
