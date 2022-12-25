@@ -24,6 +24,30 @@ components:
         title: New funny GIF
         url: http://gifka.com
         rating: pg-13
+    FullGifInfo:
+      type: object
+      properties:
+        gif_id:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+        rating:
+          $ref: "#/components/schemas/GifRating"
+        create_datetime:
+          type: string
+          format: date-time
+        update_datetime:
+          type: string
+          format: date-time
+      example:
+        gif_id: 7bcd297f-77ec-48d8-9297-db4523e12659
+        title: New funny GIF
+        url: http://gifka.com
+        rating: pg-13
+        create_datetime: 2017-07-21T17:32:28Z
+        update_datetime: 2017-08-21T17:32:28Z
     AddGifRequest:
       type: object
       required:

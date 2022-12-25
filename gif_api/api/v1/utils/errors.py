@@ -2,12 +2,12 @@ import enum
 
 
 class Error(enum.Enum):
-    BAD_REQUEST = {
+    NOT_FOUND = {
         "response": {
-            "message": "Problems parsing JSON.",
-            "code": 400,
+            "message": "The particular GIF you are requesting was not found.",
+            "code": 404,
         },
-        "status": 400,
+        "status": 404,
     }
     CONFLICT = {
         "response": {
@@ -15,13 +15,6 @@ class Error(enum.Enum):
             "code": 409,
         },
         "status": 409,
-    }
-    NOT_FOUND = {
-        "response": {
-            "message": "The particular GIF you are requesting was not found.",
-            "code": 404,
-        },
-        "status": 404,
     }
     UNPROCESSABLE_ENTITY = {
         "response": {
@@ -32,6 +25,13 @@ class Error(enum.Enum):
             "code": 422,
         },
         "status": 422,
+    }
+    SERVICE_UNAVAILABLE = {
+        "response": {
+            "message": "The server is temporarily unable to handle the request.",
+            "code": 503,
+        },
+        "status": 503,
     }
 
     def __init__(self, vals) -> None:
