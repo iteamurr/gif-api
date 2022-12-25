@@ -12,5 +12,10 @@ class BaseRequest(pydantic.BaseModel):
         data = await request.json()
         return cls(**data)
 
+    @classmethod
+    async def from_path(cls, match_info: web.UrlMappingMatchInfo) -> BaseRequest:
+        data = match_info
+        return cls(**data)
+
 
 __all__ = ["BaseRequest", "Error", "get_components"]

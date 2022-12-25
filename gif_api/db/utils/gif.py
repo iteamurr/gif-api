@@ -1,5 +1,6 @@
 import uuid
 
+import sqlalchemy
 from sqlalchemy import engine, future
 from sqlalchemy.ext import asyncio as async_orm
 
@@ -35,3 +36,11 @@ async def create_gif(gif: dto.Gif, session: async_orm.AsyncSession) -> dto.Gif:
 
     gif = dto.Gif.from_model(new_gif)
     return gif
+
+
+async def delete_gif_by_gif_id(
+    gif_id: uuid.UUID, session: async_orm.AsyncSession
+) -> None:
+    statement = sqlalchemy.delete(models.Gif).where(models.Gif.gif_id == gif_id)
+    await session.execute(statement)
+    await session.commit()

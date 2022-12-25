@@ -3,7 +3,14 @@ from aiohttp import web
 
 import gif_api
 from gif_api.api import api_v1
-from gif_api.api.v1 import add_gif, add_trending, get_trending, health
+from gif_api.api.v1 import (
+    add_gif,
+    add_trending,
+    delete_gif,
+    get_gif,
+    get_trending,
+    health,
+)
 
 
 def setup_swagger(app: web.Application) -> None:
@@ -20,8 +27,11 @@ def setup_swagger(app: web.Application) -> None:
     swagger.add_routes(
         [
             web.get("/api/v1/ping", health.ping),
+            web.get("/api/v1/ping_db", health.ping_db),
+            web.get("/api/v1/gif/{gif_id}", get_gif.handler),
             web.post("/api/v1/gif", add_gif.handler),
+            web.delete("/api/v1/gif/{gif_id}", delete_gif.handler),
             web.post("/api/v1/trending", add_trending.handler),
-            web.get("/api/v1/trending/{date}", get_trending.handler),
+            web.get("/api/v1/trending/{trending_date}", get_trending.handler),
         ]
     )
