@@ -1,6 +1,6 @@
 from aiohttp import web
 
-from gif_api import config, utils
+from gif_api import config
 from gif_api.api import api_v1
 from gif_api.api.v1 import add_gif, add_trending, get_trending, health
 
@@ -13,7 +13,7 @@ def wrap_endpoint(
             try:
                 request = await request_parser.from_request(request)
             except ValueError as err:
-                error = utils.Error.UNPROCESSABLE_ENTITY
+                error = api_v1.Error.UNPROCESSABLE_ENTITY
                 return web.json_response(data=error.response, status=error.status)
         return await endpoint(request, settings)
 
@@ -34,6 +34,6 @@ def setup_routes(app: web.Application, settings: config.Settings) -> None:
         wrap_endpoint(add_trending.handler, settings, add_trending.Request),
     )
     app.router.add_get(
-        "/api/v1/trending",
-        wrap_endpoint(get_trending.handler, settings, get_trending.Request),
+        "/api/v1/trending/{date}",
+        wrap_endpoint(get_trending.handler, settings),
     )
