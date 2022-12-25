@@ -1,0 +1,380 @@
+openapi: 3.0.0
+info:
+  title: Swagger GIF API
+  version: 0.1.0
+paths:
+  /api/v1/ping:
+    head:
+      summary: Ping.
+      description: Check the operation of the service.
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Pong!
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+              example:
+                message: Pong!
+    get:
+      summary: Ping.
+      description: Check the operation of the service.
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Pong!
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+              example:
+                message: Pong!
+  /api/v1/ping_db:
+    head:
+      summary: Ping db.
+      description: Check the operation of the database.
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Pong db!
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+              example:
+                message: Pong db!
+        '503':
+          description: The server is temporarily unable to handle the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: The server is temporarily unable to handle the request.
+                code: 503
+    get:
+      summary: Ping db.
+      description: Check the operation of the database.
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Pong db!
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+              example:
+                message: Pong db!
+        '503':
+          description: The server is temporarily unable to handle the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: The server is temporarily unable to handle the request.
+                code: 503
+  /api/v1/gif/{gif_id}:
+    head:
+      summary: Get GIF info.
+      description: Get full information about the GIF.
+      tags:
+        - GIF
+      parameters:
+        - name: gif_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 7bcd297f-77ec-48d8-9297-db4523e12659
+          style: simple
+          explode: false
+      responses:
+        '200':
+          description: Full information about the gif has been received.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullGifInfo'
+        '404':
+          description: The particular GIF you are requesting was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: The particular GIF you are requesting was not found.
+                code: 404
+    get:
+      summary: Get GIF info.
+      description: Get full information about the GIF.
+      tags:
+        - GIF
+      parameters:
+        - name: gif_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 7bcd297f-77ec-48d8-9297-db4523e12659
+          style: simple
+          explode: false
+      responses:
+        '200':
+          description: Full information about the gif has been received.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullGifInfo'
+        '404':
+          description: The particular GIF you are requesting was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: The particular GIF you are requesting was not found.
+                code: 404
+    delete:
+      summary: Delete GIF.
+      description: Delete the GIF from the database.
+      tags:
+        - GIF
+      parameters:
+        - name: gif_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 7bcd297f-77ec-48d8-9297-db4523e12659
+          style: simple
+          explode: false
+      responses:
+        '204':
+          description: GIF successfully deleted.
+        '404':
+          description: The particular GIF you are requesting was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: The particular GIF you are requesting was not found.
+                code: 404
+  /api/v1/gif:
+    post:
+      summary: Add a GIF.
+      description: Add a GIF to the database.
+      tags:
+        - GIF
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddGifRequest'
+      responses:
+        '201':
+          description: GIF successfully added.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddGifResponse'
+              example:
+                message: Created.
+                gif_id: 7bcd297f-77ec-48d8-9297-db4523e12659
+        '409':
+          description: This content already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: This content already exists.
+                code: 409
+  /api/v1/trending:
+    post:
+      summary: Add trends.
+      description: Add a GIF to trends.
+      tags:
+        - Trending
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTrendingGifRequest'
+      responses:
+        '200':
+          description: GIF successfully added.
+        '404':
+          description: The particular GIF you are requesting was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: The particular GIF you are requesting was not found.
+                code: 404
+  /api/v1/trending/{trending_date}:
+    head:
+      summary: Get trends by date.
+      description: Get trends for a specific date.
+      tags:
+        - Trending
+      parameters:
+        - name: trending_date
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/GetTrendingsRequest'
+          style: simple
+          explode: false
+      responses:
+        '200':
+          description: Trends have been successfully received.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTrendingsResponse'
+    get:
+      summary: Get trends by date.
+      description: Get trends for a specific date.
+      tags:
+        - Trending
+      parameters:
+        - name: trending_date
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/GetTrendingsRequest'
+          style: simple
+          explode: false
+      responses:
+        '200':
+          description: Trends have been successfully received.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTrendingsResponse'
+components:
+  schemas:
+    GifRating:
+      type: string
+      enum:
+        - 'y'
+        - g
+        - pg
+        - pg-13
+        - r
+    GifInfo:
+      type: object
+      properties:
+        gif_id:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+        rating:
+          $ref: '#/components/schemas/GifRating'
+      example:
+        gif_id: 7bcd297f-77ec-48d8-9297-db4523e12659
+        title: New funny GIF
+        url: http://gifka.com
+        rating: pg-13
+    FullGifInfo:
+      type: object
+      properties:
+        gif_id:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+        rating:
+          $ref: '#/components/schemas/GifRating'
+        create_datetime:
+          type: string
+          format: date-time
+        update_datetime:
+          type: string
+          format: date-time
+      example:
+        gif_id: 7bcd297f-77ec-48d8-9297-db4523e12659
+        title: New funny GIF
+        url: http://gifka.com
+        rating: pg-13
+        create_datetime: '2017-07-21T17:32:28+00:00'
+        update_datetime: '2017-08-21T17:32:28+00:00'
+    AddGifRequest:
+      type: object
+      required:
+        - title
+        - url
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        rating:
+          $ref: '#/components/schemas/GifRating'
+      example:
+        title: New funny GIF
+        url: http://gifka.com
+        rating: pg-13
+    AddGifResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        gif_id:
+          type: string
+    AddTrendingGifRequest:
+      type: object
+      required:
+        - gif_id
+        - trending_date
+      properties:
+        gif_id:
+          type: string
+        trending_date:
+          type: string
+          format: date
+      example:
+        gif_id: 7bcd297f-77ec-48d8-9297-db4523e12659
+        trending_date: '2022-12-22'
+    GetTrendingsRequest:
+      type: string
+      format: date
+      example: '2022-12-22'
+    GetTrendingsResponse:
+      type: object
+      properties:
+        trendings:
+          type: array
+          items:
+            $ref: '#/components/schemas/GifInfo'
+    Error:
+      type: object
+      required:
+        - message
+        - code
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
