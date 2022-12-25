@@ -1,8 +1,7 @@
 async def test_get_trendings(api_client, test_trendings):
     trending_date = test_trendings[0].create_datetime.date().isoformat()
-    data = {"trending_date": trending_date}
 
-    response = await api_client.get("/api/v1/trending", json=data)
+    response = await api_client.get(f"/api/v1/trending/{trending_date}")
     assert response.status == 200
 
     body = await response.json()
