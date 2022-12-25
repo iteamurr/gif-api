@@ -31,7 +31,11 @@ clean: # Clear the directory of unnecessary files.
 
 .PHONY: nice
 nice: # Format the code.
-		isort $(APPLICATION_NAME)/ tests/ && black $(APPLICATION_NAME)/ tests/
+		poetry run isort $(APPLICATION_NAME)/ tests/ && poetry run black $(APPLICATION_NAME)/ tests/
+
+.PHONY: env
+env: # Create .env file with variables.
+		@cp configuration/.env.example .env
 
 .PHONY: help
 help: # Show help for each of the Makefile recipes.
