@@ -1,0 +1,84 @@
+components:
+  schemas:
+    GifRating:
+      type: string
+      enum:
+        - y
+        - g
+        - pg
+        - pg-13
+        - r
+    GifInfo:
+      type: object
+      properties:
+        gif_id:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+        rating:
+          $ref: "#/components/schemas/GifRating"
+      example:
+        gif_id: 7bcd297f-77ec-48d8-9297-db4523e12659
+        title: New funny GIF
+        url: http://gifka.com
+        rating: pg-13
+    AddGifRequest:
+      type: object
+      required:
+        - title
+        - url
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        rating:
+          $ref: "#/components/schemas/GifRating"
+      example:
+        title: New funny GIF
+        url: http://gifka.com
+        rating: pg-13
+    AddGifResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        gif_id:
+          type: string
+    AddTrendingGifRequest:
+      type: object
+      required:
+        - gif_id
+        - trending_date
+      properties:
+        gif_id:
+          type: string
+        trending_date:
+          type: string
+          format: date
+      example:
+        gif_id: 7bcd297f-77ec-48d8-9297-db4523e12659
+        trending_date: 2022-12-22
+    GetTrendingsRequest:
+      type: string
+      format: date
+      example: 2022-12-22
+    GetTrendingsResponse:
+      type: object
+      properties:
+        trendings:
+          type: array
+          items:
+            $ref: "#/components/schemas/GifInfo"
+    Error:
+      type: object
+      required:
+        - message
+        - code
+      properties:
+        message:
+          type: string
+        code:
+          type: integer

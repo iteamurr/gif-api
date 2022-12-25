@@ -10,6 +10,7 @@ from gif_api import config as gif_api_config
 from gif_api import db
 from gif_api.db.models import *  # noqa
 
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config

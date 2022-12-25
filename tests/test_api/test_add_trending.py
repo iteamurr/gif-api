@@ -13,9 +13,6 @@ async def test_add_trending(api_client, session, test_gif, data):
     response = await api_client.post("/api/v1/trending", json=data)
     assert response.status == 200
 
-    body = await response.json()
-    assert body["message"] == "Added."
-
     statement = (
         future.select(models.Trending)
         .where(

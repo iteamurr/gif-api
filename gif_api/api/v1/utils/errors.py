@@ -25,7 +25,10 @@ class Error(enum.Enum):
     }
     UNPROCESSABLE_ENTITY = {
         "response": {
-            "message": "Your request was formatted incorrectly or missing a required parameter(s).",
+            "message": (
+                "Your request was formatted incorrectly "
+                "or missing a required parameter(s)."
+            ),
             "code": 422,
         },
         "status": 422,

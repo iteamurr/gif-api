@@ -4,6 +4,7 @@ from aiohttp import web
 
 from gif_api import config, utils
 
+
 parser = argparse.ArgumentParser(description="gif_api application")
 parser.add_argument("--port")
 
@@ -14,13 +15,16 @@ def get_app() -> web.Application:
 
     app.on_startup.append(settings.on_startup)
     app.on_shutdown.append(settings.on_shutdown)
+
     utils.setup_routes(app, settings)
+    utils.setup_swagger(app)
 
     return app
 
 
 def main() -> None:
     utils.setup_logger()
+
     app = get_app()
     port = parser.parse_args().port
 

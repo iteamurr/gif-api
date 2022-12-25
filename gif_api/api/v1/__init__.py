@@ -3,6 +3,8 @@ from __future__ import annotations
 import pydantic
 from aiohttp import web
 
+from .utils import Error, get_components
+
 
 class BaseRequest(pydantic.BaseModel):
     @classmethod
@@ -11,4 +13,4 @@ class BaseRequest(pydantic.BaseModel):
         return cls(**data)
 
 
-__all__ = ["BaseRequest"]
+__all__ = ["BaseRequest", "Error", "get_components"]
