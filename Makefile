@@ -13,6 +13,10 @@ test: # Run project tests.
 up: # Create and launch service containers.
 		docker compose up -d
 
+.PHONY: db
+db: # Launch database container.
+		docker compose up -d db
+
 .PHONY: psql
 psql: # Log in to the service database.
 		docker compose exec db psql -U $(POSTGRES_USER) -d $(POSTGRES_DB)
